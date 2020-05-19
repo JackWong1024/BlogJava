@@ -1,0 +1,12 @@
+/.idea/
+.idea
+*.iws
+*.iml
+*.ipr
+target/
+!/.gitignore
+.mvn
+.mvnw
+.mvnw.cmd
+!/www.huanghe.live.iml
+!/user-huanghe-live/user-huanghe-live.iml
