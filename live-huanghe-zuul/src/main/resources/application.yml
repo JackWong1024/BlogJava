@@ -1,0 +1,78 @@
+
+server:
+  port: 9001
+
+spring:
+  application:
+    name: zuul-server
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:9000/eureka/
+    registry-fetch-interval-seconds: 10
+
+security:
+  auth:
+    server: http://127.0.0.1:9002 #认证服务地址
+  oauth2:
+    client:
+      client-id: client_id   #oauth中的client_id值
+      client-secret: client_secret #oauth中的client-secret值
+    resource:
+      loadBalanced: true
+      jwt:
+        key-uri: ${security.auth.server}/oauth/token_key #解析jwt令牌所需要密钥的地址
+      token-info-uri: ${security.auth.server}/oauth/check_tokey  #每次都会验证token的有效性,当注销后token就不能再用了.
+zuul:
+  sensitive-headers: Access-Control-Allow-Origin,Access-Control-Allow-Methods
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 300000
+    socket-timeout-millis: 300000
+
+  routes:
+    user-server:
+      path: /user/**   #url以/user/** 开头的连接转发到user-server服务上
+      serviceId: user-server
+      stripPrefix: true
+    oauth-server:
+      path: /oauth/**  #url以/oauth/** 开头的连接转发到oauth-server服务上
+      serviceId: oauth-server
+      stripPrefix: true
+  prefix: /
+  retryable: true
+#ribbon:
+#  ReadTimeout: 120000  #请求处理的超时时间
+#  ConnectTimeout: 30000  #请求连接的超时时间    serviceID  zuul 生效
+#  eager-load:
+#    enabled: true
+#    clients: user-server,oauth-server  #服务名，转发相应的服务
+#  eureka:
+#    enabled:
+
+
+
+#熔断超时时间设置30s
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 30000
+#ribbon:
+#  ReadTimeout: 15000
+#  ConnectTimeout: 15000
+logging:
+  level:
+    com:
+      pwl:
+        vcloud:
+          zuul: debug
+
+

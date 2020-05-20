@@ -1,0 +1,21 @@
+
+server:
+  port: 9002
+
+spring:
+  application:
+    name: oauth-server
+  redis:
+    database: 5
+    host: 47.100.28.233
+    port: 7000
+    password: mfoyouredis-1
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:9000/eureka/
+    registry-fetch-interval-seconds: 10

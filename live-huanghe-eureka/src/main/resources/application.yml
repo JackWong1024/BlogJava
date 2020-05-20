@@ -1,0 +1,15 @@
+server:
+  port: 9000
+eureka:
+  client:
+    service-url:
+      #配置eureka服务器地址
+      defaultZone: http://127.0.0.1:9000/eureka
+    #是否需要将自己注册到注册中心(注册中心群需要设置为true)
+    register-with-eureka: false
+    #是否需要搜索服务新,因为自己是注册中心所以为false
+    fetch-registry: false
+    eureka-server-connect-timeout-seconds: 60000
+    eureka-server-read-timeout-seconds: 600000
+  server:
+    enable-self-preservation: false
