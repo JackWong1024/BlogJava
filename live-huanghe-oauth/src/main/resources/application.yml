@@ -19,3 +19,6 @@ eureka:
     serviceUrl:
       defaultZone: http://127.0.0.1:9000/eureka/
     registry-fetch-interval-seconds: 10
+logging:
+  level:
+    org.springframework.security: info

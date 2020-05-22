@@ -31,8 +31,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
 
         //withClient Appid
-        configurer.inMemory().withClient("yyy_client").secret(passwordEncoder().encode("yyy_secret")) //
-                .authorizedGrantTypes("password","client_credentials","refresh_token").scopes("all") //设置权限类型,用密码，客户端,刷新的token  权限为所有人
+        configurer
+                .inMemory()
+                .withClient("client")
+                .secret(passwordEncoder().encode("password")) //
+//                .redirectUris("https://www.huanghe.live")
+//                .authorizedGrantTypes("authorization_code")//"password","client_credentials","refresh_token",
+                .authorizedGrantTypes("password","client_credentials","refresh_token")
+                .scopes("all") //设置权限类型,用密码，客户端,刷新的token  权限为所有人 ,read,write  .scopes("read_userinfo", "read_contacts");
                 .accessTokenValiditySeconds(1200)
                 .refreshTokenValiditySeconds(120000);
     }
