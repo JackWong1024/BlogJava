@@ -3,6 +3,7 @@ package live.huanghe.oauth.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -11,7 +12,22 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @EnableWebSecurity//开启权限验证
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class MySecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+  http
+          .authorizeRequests()
+          .antMatchers("/**").permitAll()//允许用户任意访问
+                        .anyRequest().authenticated()//其余所有请求都需要认证后才可访问
+                .and()
+                .formLogin()
+  //.loginPage("/login/login.do")  /
+  //.defaultSuccessUrl("/hello2")
+                        .permitAll();//允许用户任意访问
+                http.csrf().disable();
+  }
 
   /**
    * 配置这个bean会在做AuthorizationServerConfigurer配置的时候使用
@@ -33,8 +49,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected UserDetailsService userDetailsService() {
     InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-    manager.createUser(User.withUsername("admin").password(PasswordEncoderFactories.createDelegatingPasswordEncoder()
-            .encode("admin")).authorities("USER").build());
+    manager.createUser(User.withUsername("admin")
+            .password(PasswordEncoderFactories.createDelegatingPasswordEncoder()
+            .encode("admin"))
+            .authorities("USER").build());
     return manager;
   }
 
