@@ -9,7 +9,7 @@ eureka:
     register-with-eureka: false
     #是否需要搜索服务新,因为自己是注册中心所以为false
     fetch-registry: false
-    eureka-server-connect-timeout-seconds: 60000
+    eureka-server-connect-timeout-seconds: 600000
     eureka-server-read-timeout-seconds: 600000
   server:
     enable-self-preservation: false
