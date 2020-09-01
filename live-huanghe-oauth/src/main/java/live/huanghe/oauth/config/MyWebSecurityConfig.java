@@ -1,5 +1,6 @@
 package live.huanghe.oauth.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @EnableWebSecurity//开启权限验证
-public class MySecurityConfig extends WebSecurityConfigurerAdapter {
+public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Override
@@ -46,37 +47,39 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+
     /**
      * 配置用户
      * 使用内存中的用户，实际项目中，一般使用的是数据库保存用户，具体的实现类可以使用JdbcDaoImpl或者JdbcUserDetailsManager
      *
      * @return
      */
-    @Bean
-    @Override
-    protected UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-//        manager.createUser(User.withUsername("admin")
-////                .password(PasswordEncoderFactories.createDelegatingPasswordEncoder()
-////                        .encode("admin"))
-//                .password(new MyPasswordEncoder().encode("admin"))
-//                .authorities("USER").build());
-        return manager;
-    }
+//    @Bean
+//    @Override
+//    protected UserDetailsService userDetailsService() {
+//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+////        manager.createUser(User.withUsername("admin")
+//////                .password(PasswordEncoderFactories.createDelegatingPasswordEncoder()
+//////                        .encode("admin"))
+////                .password(new MyPasswordEncoder().encode("admin"))
+////                .authorities("USER").build());
+//        return manager;
+//    }
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService());
-        auth.inMemoryAuthentication()
-                .withUser("zhangsan").password("12345").roles("SuperAdmin")
-                .and()
-                .withUser("admin").password("admin").roles("Admin")
-                .and()
-                .withUser("wangwu").password("12345").roles("Employee")
-                .and()
-                .passwordEncoder(new CustomPasswordEncoder());
+        auth.userDetailsService(userDetailsService()).passwordEncoder(new CustomPasswordEncoder());
+//        auth.inMemoryAuthentication()
+//                .withUser("zhangsan").password("12345").roles("SuperAdmin")
+//                .and()
+//                .withUser("admin").password("admin").roles("Admin")
+//                .and()
+//                .withUser("wangwu").password("12345").roles("Employee")
+//                .and()
+//                .passwordEncoder(new CustomPasswordEncoder());
     }
+    //自定义密码验证器
     public class CustomPasswordEncoder implements PasswordEncoder {
 
         @Override

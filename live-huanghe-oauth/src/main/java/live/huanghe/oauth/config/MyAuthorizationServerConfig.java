@@ -1,8 +1,11 @@
 package live.huanghe.oauth.config;
 
 
+import com.netflix.discovery.converters.Auto;
+import live.huanghe.oauth.service.OauthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -26,6 +29,7 @@ import org.springframework.security.oauth2.provider.endpoint.TokenKeyEndpoint;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import java.util.concurrent.TimeUnit;
@@ -36,17 +40,31 @@ import java.util.concurrent.TimeUnit;
 public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager; //认证管理器
+
+//    @Autowired
+//    UserDetailsService userDetailsService;   //用户信息服务  UserDetailsService用来从数据库中根据用户名查询用户信息以及角色信息
 
     @Autowired
-    UserDetailsService userDetailsService;
+    OauthService oauthService;
+
+    @Autowired
+    TokenStore tokenStore;
+
+    @Autowired
+    private RedisConnectionFactory redisConnectionFactory;
 
     // 使用最基本的InMemoryTokenStore生成token
-    @Bean
-    public TokenStore memoryTokenStore() {
-        return new InMemoryTokenStore();
-    }
+//    @Bean
+//    public TokenStore memoryTokenStore() {
+//        return new InMemoryTokenStore();
+//    }
 
+    //使用redis来存储令牌
+    @Bean
+    public TokenStore tokenStore(){
+        return new RedisTokenStore(redisConnectionFactory);
+    }
 
     /**
      * 配置客户端详情服务
@@ -64,6 +82,7 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
                 .redirectUris("http://www.baidu.com", "http://localhost:9005/user/getUserInfoByUserId")
                 .secret(bCryptPasswordEncoder().encode("123456"));
         //客户端安全码,secret密码配置从 Spring Security 5.0开始必须以 {bcrypt}+加密后的密码 这种格式填写;bCryptPasswordEncoder.encode("123456")
+
 
     }
 
@@ -100,8 +119,8 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         // 配置tokenStore,需要配置userDetailsService，否则refresh_token会报错
         endpoints.authenticationManager(authenticationManager);
-        endpoints.tokenStore(memoryTokenStore());
-        //endpoints.userDetailsService(userService);
+        endpoints.tokenStore(tokenStore);
+        endpoints.userDetailsService(oauthService);
         // 配置TokenServices参数 可以考虑使用[DefaultTokenServices]，它使用随机值创建令牌
         DefaultTokenServices tokenServices = new DefaultTokenServices();
         tokenServices.setTokenStore(endpoints.getTokenStore());

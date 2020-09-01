@@ -1,6 +1,7 @@
 package live.huanghe.oauth.service.serviceImpl;
 
 
+import live.huanghe.oauth.domain.UserVoDetail;
 import live.huanghe.oauth.service.OauthService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,10 @@ public class OauthServiceImpl implements OauthService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
+        UserVoDetail userVoDetail = new UserVoDetail();
+        userVoDetail.setUsername("admin");
+        userVoDetail.setPassword("admin");
+        userVoDetail.setUserId(1);
+        return  userVoDetail;
     }
 }
