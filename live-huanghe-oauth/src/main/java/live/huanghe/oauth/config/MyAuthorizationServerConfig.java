@@ -67,6 +67,10 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
 
     }
 
+
+
+
+
     @Bean
     public PasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -108,12 +112,16 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
         endpoints.tokenServices(tokenServices);
     }
 
+//
+//    @Bean
+//    PasswordEncoder passwordEncoder() {
+//        // 加密方式
+//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        return passwordEncoder;
+//    }
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        // 加密方式
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder;
-    }
+
+
+
 
 }

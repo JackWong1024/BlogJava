@@ -9,59 +9,85 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @EnableWebSecurity//开启权限验证
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-  http
-          .authorizeRequests()
-          .antMatchers("/**").permitAll()//允许用户任意访问
-                        .anyRequest().authenticated()//其余所有请求都需要认证后才可访问
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+      http.requestMatchers()//使HttpSecurity接收以"/login/","/oauth/"开头请求。
+              .antMatchers("/oauth/**", "/login/**", "/logout/**")
+              .and()
+              .authorizeRequests()
+              .antMatchers("/oauth/**").authenticated()
+              .and()
+              .authorizeRequests()
+              .antMatchers("/**")
+              .permitAll()
+              .and()
+              .formLogin()
+
+              ;
+        http.csrf().disable();
+    }
+
+    /**
+     * 配置这个bean会在做AuthorizationServerConfigurer配置的时候使用
+     *
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    /**
+     * 配置用户
+     * 使用内存中的用户，实际项目中，一般使用的是数据库保存用户，具体的实现类可以使用JdbcDaoImpl或者JdbcUserDetailsManager
+     *
+     * @return
+     */
+//    @Bean
+//    @Override
+//    protected UserDetailsService userDetailsService() {
+//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+////        manager.createUser(User.withUsername("admin")
+//////                .password(PasswordEncoderFactories.createDelegatingPasswordEncoder()
+//////                        .encode("admin"))
+////                .password(new MyPasswordEncoder().encode("admin"))
+////                .authorities("USER").build());
+////        return manager;
+//    }
+
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userDetailsService());
+        auth.inMemoryAuthentication()
+                .withUser("zhangsan").password("12345").roles("SuperAdmin")
                 .and()
-                .formLogin()
-  //.loginPage("/login/login.do")  /
-  //.defaultSuccessUrl("/hello2")
-                        .permitAll();//允许用户任意访问
-                http.csrf().disable();
-  }
+                .withUser("admin").password("admin").roles("Admin")
+                .and()
+                .withUser("wangwu").password("12345").roles("Employee")
+                .and()
+                .passwordEncoder(new CustomPasswordEncoder());
+    }
+    public class CustomPasswordEncoder implements PasswordEncoder {
 
-  /**
-   * 配置这个bean会在做AuthorizationServerConfigurer配置的时候使用
-   * @return
-   * @throws Exception
-   */
-  @Bean
-  @Override
-  public AuthenticationManager authenticationManagerBean() throws Exception {
-    return super.authenticationManagerBean();
-  }
+        @Override
+        public String encode(CharSequence charSequence) {
+            return charSequence.toString();
+        }
 
-  /**
-   * 配置用户
-   * 使用内存中的用户，实际项目中，一般使用的是数据库保存用户，具体的实现类可以使用JdbcDaoImpl或者JdbcUserDetailsManager
-   * @return
-   */
-  @Bean
-  @Override
-  protected UserDetailsService userDetailsService() {
-    InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-    manager.createUser(User.withUsername("admin")
-            .password(PasswordEncoderFactories.createDelegatingPasswordEncoder()
-            .encode("admin"))
-            .authorities("USER").build());
-    return manager;
-  }
-
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(userDetailsService());
-  }
-
-
-
+        @Override
+        public boolean matches(CharSequence charSequence, String s) {
+            return s.equals(charSequence.toString());
+        }
+    }
 
 }

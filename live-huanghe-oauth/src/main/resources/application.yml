@@ -7,7 +7,7 @@ spring:
     name: oauth-server
   redis:
     database: 5
-    host: 47.100.28.233
+    host: 127.0.0.1
     port: 7000
     password: mfoyouredis-1
 eureka:
@@ -21,4 +21,4 @@ eureka:
     registry-fetch-interval-seconds: 10
 logging:
   level:
-    org.springframework.security: info
+    org.springframework.security: debug

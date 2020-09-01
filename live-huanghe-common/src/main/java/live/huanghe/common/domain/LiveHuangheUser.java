@@ -10,17 +10,7 @@ import lombok.Data;
 @ApiModel(value = "live-huanghe-common-domain-LiveHuangheUser")
 @Data
 public class LiveHuangheUser implements Serializable{
-    public static final String COL_USER_ID = "user_id";
-    public static final String COL_USER_NAME = "user_name";
-    public static final String COL_PASS_WORD = "pass_word";
-    public static final String COL_USER_DATE_OF_BIRTH = "user_date_of_birth";
-    public static final String COL_USER_EMAIL = "user_email";
-    public static final String COL_USER_PHONE = "user_phone";
-    public static final String COL_USER_WEBSITE = "user_website";
-    public static final String COL_USER_ADDRESS = "user_address";
-    public static final String COL_USER_TYPE = "user_type";
-    public static final String COL_USER_STATUS = "user_status";
-    public static final String COL_USER_HEAD_IMG = "user_head_img";
+
     @ApiModelProperty(value = "null")
     private Integer userId;
 

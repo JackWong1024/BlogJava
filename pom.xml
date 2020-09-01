@@ -9,7 +9,6 @@
         <module>live-huanghe-eureka</module>
         <module>live-huanghe-common</module>
         <module>live-huanghe-zuul</module>
-        <module>live-huanghe-download</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
