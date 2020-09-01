@@ -52,17 +52,17 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * @return
      */
-//    @Bean
-//    @Override
-//    protected UserDetailsService userDetailsService() {
-//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-////        manager.createUser(User.withUsername("admin")
-//////                .password(PasswordEncoderFactories.createDelegatingPasswordEncoder()
-//////                        .encode("admin"))
-////                .password(new MyPasswordEncoder().encode("admin"))
-////                .authorities("USER").build());
-////        return manager;
-//    }
+    @Bean
+    @Override
+    protected UserDetailsService userDetailsService() {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+//        manager.createUser(User.withUsername("admin")
+////                .password(PasswordEncoderFactories.createDelegatingPasswordEncoder()
+////                        .encode("admin"))
+//                .password(new MyPasswordEncoder().encode("admin"))
+//                .authorities("USER").build());
+        return manager;
+    }
 
 
     @Override

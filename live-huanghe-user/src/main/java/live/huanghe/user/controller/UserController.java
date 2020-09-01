@@ -12,6 +12,7 @@ import live.huanghe.user.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +36,14 @@ public class UserController {
        int userId=1;
       LiveHuangheUser user=  userService.getUserInfoByUserId(userId);
       return JsonRet.buildSuccRet(user);
+
+    }
+
+    @ApiOperation("获取用户认证信息")
+    @GetMapping("/getAuthentication")
+    public JsonRet<Authentication> getAuthentication(Authentication authentication){
+
+        return JsonRet.buildSuccRet(authentication);
 
     }
 
