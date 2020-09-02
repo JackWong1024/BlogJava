@@ -30,6 +30,8 @@ import org.springframework.security.oauth2.provider.endpoint.TokenKeyEndpoint;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
@@ -106,6 +108,22 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
                 .allowFormAuthenticationForClients();
     }
 
+
+    @Bean
+    public TokenStore jwtTokenStore(){
+        return new JwtTokenStore(jwtAccessTokenConverter());
+    }
+
+    /**
+     * token生成处理：指定签名
+     */
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter(){
+        JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
+        accessTokenConverter.setSigningKey("huang_");
+        return accessTokenConverter;
+    }
+
     /**
      * 用来配置授权（authorization）以及令牌（token）的访问端点和令牌服务(token services)
      *
@@ -117,6 +135,7 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
         // 配置tokenStore,需要配置userDetailsService，否则refresh_token会报错
         endpoints.authenticationManager(authenticationManager);
         endpoints.tokenStore(tokenStore);  //生成token..
+        endpoints.accessTokenConverter(jwtAccessTokenConverter());
         endpoints.userDetailsService(oauthService);
         // 配置TokenServices参数 可以考虑使用[DefaultTokenServices]，它使用随机值创建令牌
         DefaultTokenServices tokenServices = new DefaultTokenServices();
