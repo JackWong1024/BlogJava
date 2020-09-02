@@ -15,6 +15,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
@@ -31,11 +32,10 @@ public class UserController {
     private UserService userService;
 
     @ApiOperation("获取用户信息,如果登录了,就获取登录用户的id")
-    @GetMapping("/getUserInfoByUserId")
-    public JsonRet<LiveHuangheUser> getUserInfoByUserId(){
-       int userId=1;
-      LiveHuangheUser user=  userService.getUserInfoByUserId(userId);
-      return JsonRet.buildSuccRet(user);
+    @GetMapping("/getUserInfoByUserName")
+    public LiveHuangheUser getUserInfoByUserId(@RequestParam("userName")String userName ){
+      LiveHuangheUser user=  userService.getUserInfoByUserId(userName);
+      return user;
 
     }
 

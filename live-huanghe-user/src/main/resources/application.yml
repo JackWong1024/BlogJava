@@ -11,7 +11,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:9000/eureka/
+      defaultZone: http://127.0.0.1:8000/eureka/
       registry-fetch-interval-seconds: 10
 #redis:
 #  pool:

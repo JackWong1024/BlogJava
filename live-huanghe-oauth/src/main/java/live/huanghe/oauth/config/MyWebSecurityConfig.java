@@ -1,5 +1,7 @@
 package live.huanghe.oauth.config;
 
+import live.huanghe.oauth.service.OauthService;
+import live.huanghe.oauth.service.serviceImpl.OauthServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -67,9 +69,12 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
 
 
+    @Autowired
+    OauthService oauthService;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(new CustomPasswordEncoder());
+        auth.userDetailsService(oauthService).passwordEncoder(new CustomPasswordEncoder());
 //        auth.inMemoryAuthentication()
 //                .withUser("zhangsan").password("12345").roles("SuperAdmin")
 //                .and()

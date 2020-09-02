@@ -17,8 +17,12 @@ eureka:
     lease-expiration-duration-in-seconds: 20
   client:
     serviceUrl:
-      defaultZone: http://127.0.0.1:9000/eureka/
+      defaultZone: http://127.0.0.1:8000/eureka/
     registry-fetch-interval-seconds: 10
 logging:
   level:
     org.springframework.security: debug
+feign:
+  httpclient:
+    connection-timeout: 50000
+    connection-timer-repeat: 50000

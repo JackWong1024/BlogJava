@@ -6,5 +6,5 @@ import org.apache.ibatis.annotations.Select;
 public interface UserService {
 
 //    @Select("select * from live_huanghe_user where user_id=ifnull(#{userId},1,#{userId}) ")
-    LiveHuangheUser getUserInfoByUserId(int userId);
+    LiveHuangheUser getUserInfoByUserId(String  userName);
 }

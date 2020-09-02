@@ -41,18 +41,13 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
 
     @Autowired
     private AuthenticationManager authenticationManager; //认证管理器
-
-//    @Autowired
-//    UserDetailsService userDetailsService;   //用户信息服务  UserDetailsService用来从数据库中根据用户名查询用户信息以及角色信息
-
     @Autowired
     OauthService oauthService;
-
+    @Autowired
+    RedisConnectionFactory redisConnectionFactory;
     @Autowired
     TokenStore tokenStore;
 
-    @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
 
     // 使用最基本的InMemoryTokenStore生成token
 //    @Bean
@@ -63,7 +58,9 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
     //使用redis来存储令牌
     @Bean
     public TokenStore tokenStore(){
-        return new RedisTokenStore(redisConnectionFactory);
+        RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
+        redisTokenStore.setPrefix("auth-token:");
+        return redisTokenStore;
     }
 
     /**
@@ -80,6 +77,7 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
                 .authorizedGrantTypes("authorization_code", "refresh_token")//授权方式
                 .scopes("all")//授权范围
                 .redirectUris("http://www.baidu.com", "http://localhost:9005/user/getUserInfoByUserId")
+//                .redirectUris()
                 .secret(bCryptPasswordEncoder().encode("123456"));
         //客户端安全码,secret密码配置从 Spring Security 5.0开始必须以 {bcrypt}+加密后的密码 这种格式填写;bCryptPasswordEncoder.encode("123456")
 
@@ -103,7 +101,7 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        /* 配置token获取合验证时的策略 */
+        /* 配置token获取和验证时的策略 */
         security.tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()")
                 .allowFormAuthenticationForClients();
@@ -119,7 +117,7 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         // 配置tokenStore,需要配置userDetailsService，否则refresh_token会报错
         endpoints.authenticationManager(authenticationManager);
-        endpoints.tokenStore(tokenStore);
+        endpoints.tokenStore(tokenStore);  //生成token..
         endpoints.userDetailsService(oauthService);
         // 配置TokenServices参数 可以考虑使用[DefaultTokenServices]，它使用随机值创建令牌
         DefaultTokenServices tokenServices = new DefaultTokenServices();
