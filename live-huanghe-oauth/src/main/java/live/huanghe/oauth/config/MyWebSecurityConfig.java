@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -14,11 +15,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 @EnableWebSecurity//开启权限验证
 public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
+    @Autowired
+    OauthService oauthService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
       http.requestMatchers()//使HttpSecurity接收以"/login/","/oauth/"开头请求。
@@ -56,21 +59,15 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * @return
      */
-//    @Bean
-//    @Override
-//    protected UserDetailsService userDetailsService() {
-//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-////        manager.createUser(User.withUsername("admin")
-//////                .password(PasswordEncoderFactories.createDelegatingPasswordEncoder()
-//////                        .encode("admin"))
-////                .password(new MyPasswordEncoder().encode("admin"))
-////                .authorities("USER").build());
-//        return manager;
-//    }
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        //解决静态资源被拦截的问题...这里可以用来做自定义的登录界面..替换默认的登录界面
+        web.ignoring().antMatchers("/asserts/**");
+        //web.ignoring().antMatchers("/favicon.ico");
+
+    }
 
 
-    @Autowired
-    OauthService oauthService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
@@ -81,17 +82,15 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
                 .secret(bCryptPasswordEncoder().encode("123456"));
         //客户端安全码,secret密码配置从 Spring Security 5.0开始必须以 {bcrypt}+加密后的密码 这种格式填写;bCryptPasswordEncoder.encode("123456")
 
-
     }
-
-
-
 
 
     @Bean
     public PasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 
     /**
      * 用来配置令牌端点(Token Endpoint)的安全约束.
@@ -129,13 +128,6 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
         endpoints.tokenServices(tokenServices);
     }
 
-//
-//    @Bean
-//    PasswordEncoder passwordEncoder() {
-//        // 加密方式
-//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//        return passwordEncoder;
-//    }
 
 
 
