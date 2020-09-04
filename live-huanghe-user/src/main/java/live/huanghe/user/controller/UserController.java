@@ -34,8 +34,9 @@ public class UserController {
     @ApiOperation("获取用户信息,如果登录了,就获取登录用户的id")
     @GetMapping("/getUserInfoByUserName")
     public LiveHuangheUser getUserInfoByUserId(@RequestParam("userName")String userName ){
-      LiveHuangheUser user=  userService.getUserInfoByUserId(userName);
-      return user;
+      LiveHuangheUser user;
+        user = userService.getUserInfoByUserId(userName);
+        return user;
 
     }
 
@@ -51,7 +52,7 @@ public class UserController {
 
         SimpleDateFormat sdf=new SimpleDateFormat("M月dd日 H时mm分");
         String format = sdf.format(new Date());
-        System.out.printf(format);
+        System.out.print(format);
     }
 
 }

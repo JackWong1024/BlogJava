@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -22,19 +23,24 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     OauthService oauthService;
+
+
+    //配置安全拦截机制.
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-      http.requestMatchers()//使HttpSecurity接收以"/login/","/oauth/"开头请求。
+      http.requestMatchers()//使HttpSecurity接收以"/login/","/oauth/"开头请求。 认证通过.
               .antMatchers("/oauth/**", "/login/**", "/logout/**")
               .and()
               .authorizeRequests()
-              .antMatchers("/oauth/**").authenticated()
+              .antMatchers("/user/**").authenticated()
               .and()
               .authorizeRequests()
               .antMatchers("/**")
               .permitAll()
               .and()
-              .formLogin()
+              .formLogin()  //允许标单输入.用用户名和密码输入.
+              .successForwardUrl("/login_susscess")  //登录成功跳转
 
               ;
         http.csrf().disable();
@@ -71,17 +77,9 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(oauthService).passwordEncoder(new CustomPasswordEncoder());
-//        auth.inMemoryAuthentication()
-//                .withUser("zhangsan").password("12345").roles("SuperAdmin")
-//                .and()
-//                .withUser("admin").password("admin").roles("Admin")
-//                .and()
-//                .withUser("wangwu").password("12345").roles("Employee")
-//                .and()
-//                .passwordEncoder(new CustomPasswordEncoder());
+        auth.userDetailsService(oauthService).passwordEncoder(passwordEncoder());
     }
-    //自定义密码验证器
+    //自定义密码编码器
     public class CustomPasswordEncoder implements PasswordEncoder {
 
         @Override
@@ -93,6 +91,12 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
         public boolean matches(CharSequence charSequence, String s) {
             return s.equals(charSequence.toString());
         }
+    }
+
+    //原有的密码编码器
+    @Bean
+    protected PasswordEncoder passwordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
     }
 
 }
