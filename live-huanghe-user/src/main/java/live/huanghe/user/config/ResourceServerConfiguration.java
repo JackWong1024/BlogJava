@@ -22,7 +22,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
         http.csrf().disable()//禁用了 csrf 功能
                 .authorizeRequests()//限定签名成功的请求
-                .antMatchers("/oauth/**","/login").permitAll()
+                .antMatchers("/oauth/**","/login","/websocket/**").permitAll()
                 .antMatchers("/decision/**","/govern/**").hasAnyRole("USER","ADMIN")
 //                .antMatchers("/user/**","/admin/**").authenticated()//签名成功后可访问，不受role限制
                 .anyRequest().permitAll()//其他没有限定的请求，允许访问
