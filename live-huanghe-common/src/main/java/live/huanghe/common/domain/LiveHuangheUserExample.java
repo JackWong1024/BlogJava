@@ -165,6 +165,66 @@ public class LiveHuangheUserExample {
             return (Criteria) this;
         }
 
+        public Criteria andUserCreateTimeIsNull() {
+            addCriterion("user_create_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserCreateTimeIsNotNull() {
+            addCriterion("user_create_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserCreateTimeEqualTo(Date value) {
+            addCriterion("user_create_time =", value, "userCreateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserCreateTimeNotEqualTo(Date value) {
+            addCriterion("user_create_time <>", value, "userCreateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserCreateTimeGreaterThan(Date value) {
+            addCriterion("user_create_time >", value, "userCreateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserCreateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("user_create_time >=", value, "userCreateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserCreateTimeLessThan(Date value) {
+            addCriterion("user_create_time <", value, "userCreateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserCreateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("user_create_time <=", value, "userCreateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserCreateTimeIn(List<Date> values) {
+            addCriterion("user_create_time in", values, "userCreateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserCreateTimeNotIn(List<Date> values) {
+            addCriterion("user_create_time not in", values, "userCreateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserCreateTimeBetween(Date value1, Date value2) {
+            addCriterion("user_create_time between", value1, value2, "userCreateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserCreateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("user_create_time not between", value1, value2, "userCreateTime");
+            return (Criteria) this;
+        }
+
         public Criteria andUserNameIsNull() {
             addCriterion("user_name is null");
             return (Criteria) this;
@@ -235,73 +295,213 @@ public class LiveHuangheUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andPassWordIsNull() {
-            addCriterion("pass_word is null");
+        public Criteria andUserEnglishNameIsNull() {
+            addCriterion("user_english_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andPassWordIsNotNull() {
-            addCriterion("pass_word is not null");
+        public Criteria andUserEnglishNameIsNotNull() {
+            addCriterion("user_english_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPassWordEqualTo(String value) {
-            addCriterion("pass_word =", value, "passWord");
+        public Criteria andUserEnglishNameEqualTo(String value) {
+            addCriterion("user_english_name =", value, "userEnglishName");
             return (Criteria) this;
         }
 
-        public Criteria andPassWordNotEqualTo(String value) {
-            addCriterion("pass_word <>", value, "passWord");
+        public Criteria andUserEnglishNameNotEqualTo(String value) {
+            addCriterion("user_english_name <>", value, "userEnglishName");
             return (Criteria) this;
         }
 
-        public Criteria andPassWordGreaterThan(String value) {
-            addCriterion("pass_word >", value, "passWord");
+        public Criteria andUserEnglishNameGreaterThan(String value) {
+            addCriterion("user_english_name >", value, "userEnglishName");
             return (Criteria) this;
         }
 
-        public Criteria andPassWordGreaterThanOrEqualTo(String value) {
-            addCriterion("pass_word >=", value, "passWord");
+        public Criteria andUserEnglishNameGreaterThanOrEqualTo(String value) {
+            addCriterion("user_english_name >=", value, "userEnglishName");
             return (Criteria) this;
         }
 
-        public Criteria andPassWordLessThan(String value) {
-            addCriterion("pass_word <", value, "passWord");
+        public Criteria andUserEnglishNameLessThan(String value) {
+            addCriterion("user_english_name <", value, "userEnglishName");
             return (Criteria) this;
         }
 
-        public Criteria andPassWordLessThanOrEqualTo(String value) {
-            addCriterion("pass_word <=", value, "passWord");
+        public Criteria andUserEnglishNameLessThanOrEqualTo(String value) {
+            addCriterion("user_english_name <=", value, "userEnglishName");
             return (Criteria) this;
         }
 
-        public Criteria andPassWordLike(String value) {
-            addCriterion("pass_word like", value, "passWord");
+        public Criteria andUserEnglishNameLike(String value) {
+            addCriterion("user_english_name like", value, "userEnglishName");
             return (Criteria) this;
         }
 
-        public Criteria andPassWordNotLike(String value) {
-            addCriterion("pass_word not like", value, "passWord");
+        public Criteria andUserEnglishNameNotLike(String value) {
+            addCriterion("user_english_name not like", value, "userEnglishName");
             return (Criteria) this;
         }
 
-        public Criteria andPassWordIn(List<String> values) {
-            addCriterion("pass_word in", values, "passWord");
+        public Criteria andUserEnglishNameIn(List<String> values) {
+            addCriterion("user_english_name in", values, "userEnglishName");
             return (Criteria) this;
         }
 
-        public Criteria andPassWordNotIn(List<String> values) {
-            addCriterion("pass_word not in", values, "passWord");
+        public Criteria andUserEnglishNameNotIn(List<String> values) {
+            addCriterion("user_english_name not in", values, "userEnglishName");
             return (Criteria) this;
         }
 
-        public Criteria andPassWordBetween(String value1, String value2) {
-            addCriterion("pass_word between", value1, value2, "passWord");
+        public Criteria andUserEnglishNameBetween(String value1, String value2) {
+            addCriterion("user_english_name between", value1, value2, "userEnglishName");
             return (Criteria) this;
         }
 
-        public Criteria andPassWordNotBetween(String value1, String value2) {
-            addCriterion("pass_word not between", value1, value2, "passWord");
+        public Criteria andUserEnglishNameNotBetween(String value1, String value2) {
+            addCriterion("user_english_name not between", value1, value2, "userEnglishName");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserChineseNameIsNull() {
+            addCriterion("user_chinese_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserChineseNameIsNotNull() {
+            addCriterion("user_chinese_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserChineseNameEqualTo(String value) {
+            addCriterion("user_chinese_name =", value, "userChineseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserChineseNameNotEqualTo(String value) {
+            addCriterion("user_chinese_name <>", value, "userChineseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserChineseNameGreaterThan(String value) {
+            addCriterion("user_chinese_name >", value, "userChineseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserChineseNameGreaterThanOrEqualTo(String value) {
+            addCriterion("user_chinese_name >=", value, "userChineseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserChineseNameLessThan(String value) {
+            addCriterion("user_chinese_name <", value, "userChineseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserChineseNameLessThanOrEqualTo(String value) {
+            addCriterion("user_chinese_name <=", value, "userChineseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserChineseNameLike(String value) {
+            addCriterion("user_chinese_name like", value, "userChineseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserChineseNameNotLike(String value) {
+            addCriterion("user_chinese_name not like", value, "userChineseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserChineseNameIn(List<String> values) {
+            addCriterion("user_chinese_name in", values, "userChineseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserChineseNameNotIn(List<String> values) {
+            addCriterion("user_chinese_name not in", values, "userChineseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserChineseNameBetween(String value1, String value2) {
+            addCriterion("user_chinese_name between", value1, value2, "userChineseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserChineseNameNotBetween(String value1, String value2) {
+            addCriterion("user_chinese_name not between", value1, value2, "userChineseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserPassWordIsNull() {
+            addCriterion("user_pass_word is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserPassWordIsNotNull() {
+            addCriterion("user_pass_word is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserPassWordEqualTo(String value) {
+            addCriterion("user_pass_word =", value, "userPassWord");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserPassWordNotEqualTo(String value) {
+            addCriterion("user_pass_word <>", value, "userPassWord");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserPassWordGreaterThan(String value) {
+            addCriterion("user_pass_word >", value, "userPassWord");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserPassWordGreaterThanOrEqualTo(String value) {
+            addCriterion("user_pass_word >=", value, "userPassWord");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserPassWordLessThan(String value) {
+            addCriterion("user_pass_word <", value, "userPassWord");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserPassWordLessThanOrEqualTo(String value) {
+            addCriterion("user_pass_word <=", value, "userPassWord");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserPassWordLike(String value) {
+            addCriterion("user_pass_word like", value, "userPassWord");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserPassWordNotLike(String value) {
+            addCriterion("user_pass_word not like", value, "userPassWord");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserPassWordIn(List<String> values) {
+            addCriterion("user_pass_word in", values, "userPassWord");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserPassWordNotIn(List<String> values) {
+            addCriterion("user_pass_word not in", values, "userPassWord");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserPassWordBetween(String value1, String value2) {
+            addCriterion("user_pass_word between", value1, value2, "userPassWord");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserPassWordNotBetween(String value1, String value2) {
+            addCriterion("user_pass_word not between", value1, value2, "userPassWord");
             return (Criteria) this;
         }
 
@@ -862,66 +1062,6 @@ public class LiveHuangheUserExample {
 
         public Criteria andUserHeadImgNotBetween(String value1, String value2) {
             addCriterion("user_head_img not between", value1, value2, "userHeadImg");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserCreateTimeIsNull() {
-            addCriterion("user_create_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserCreateTimeIsNotNull() {
-            addCriterion("user_create_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserCreateTimeEqualTo(Date value) {
-            addCriterion("user_create_time =", value, "userCreateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserCreateTimeNotEqualTo(Date value) {
-            addCriterion("user_create_time <>", value, "userCreateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserCreateTimeGreaterThan(Date value) {
-            addCriterion("user_create_time >", value, "userCreateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserCreateTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("user_create_time >=", value, "userCreateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserCreateTimeLessThan(Date value) {
-            addCriterion("user_create_time <", value, "userCreateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserCreateTimeLessThanOrEqualTo(Date value) {
-            addCriterion("user_create_time <=", value, "userCreateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserCreateTimeIn(List<Date> values) {
-            addCriterion("user_create_time in", values, "userCreateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserCreateTimeNotIn(List<Date> values) {
-            addCriterion("user_create_time not in", values, "userCreateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserCreateTimeBetween(Date value1, Date value2) {
-            addCriterion("user_create_time between", value1, value2, "userCreateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserCreateTimeNotBetween(Date value1, Date value2) {
-            addCriterion("user_create_time not between", value1, value2, "userCreateTime");
             return (Criteria) this;
         }
 

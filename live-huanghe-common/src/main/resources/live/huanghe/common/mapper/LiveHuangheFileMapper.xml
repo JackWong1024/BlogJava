@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="live.huanghe.common.dao.LiveHuangheFileMapper">
+  <resultMap id="BaseResultMap" type="live.huanghe.common.domain.LiveHuangheFile">
+    <!--@mbg.generated-->
+    <!--@Table live_huanghe_file-->
+    <id column="file_id" property="fileId" />
+    <result column="file_url" property="fileUrl" />
+    <result column="file_create_time" property="fileCreateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    file_id, file_url, file_create_time
+  </sql>
+  <select id="selectByExample" parameterType="live.huanghe.common.domain.LiveHuangheFileExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from live_huanghe_file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from live_huanghe_file
+    where file_id = #{fileId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from live_huanghe_file
+    where file_id = #{fileId}
+  </delete>
+  <delete id="deleteByExample" parameterType="live.huanghe.common.domain.LiveHuangheFileExample">
+    <!--@mbg.generated-->
+    delete from live_huanghe_file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="file_id" keyProperty="fileId" parameterType="live.huanghe.common.domain.LiveHuangheFile" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into live_huanghe_file (file_url, file_create_time)
+    values (#{fileUrl}, #{fileCreateTime})
+  </insert>
+  <insert id="insertSelective" keyColumn="file_id" keyProperty="fileId" parameterType="live.huanghe.common.domain.LiveHuangheFile" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into live_huanghe_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fileUrl != null and fileUrl != ''">
+        file_url,
+      </if>
+      <if test="fileCreateTime != null">
+        file_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fileUrl != null and fileUrl != ''">
+        #{fileUrl},
+      </if>
+      <if test="fileCreateTime != null">
+        #{fileCreateTime},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="live.huanghe.common.domain.LiveHuangheFileExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from live_huanghe_file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update live_huanghe_file
+    <set>
+      <if test="record.fileId != null">
+        file_id = #{record.fileId},
+      </if>
+      <if test="record.fileUrl != null">
+        file_url = #{record.fileUrl},
+      </if>
+      <if test="record.fileCreateTime != null">
+        file_create_time = #{record.fileCreateTime},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update live_huanghe_file
+    set file_id = #{record.fileId},
+      file_url = #{record.fileUrl},
+      file_create_time = #{record.fileCreateTime}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="live.huanghe.common.domain.LiveHuangheFile">
+    <!--@mbg.generated-->
+    update live_huanghe_file
+    <set>
+      <if test="fileUrl != null and fileUrl != ''">
+        file_url = #{fileUrl},
+      </if>
+      <if test="fileCreateTime != null">
+        file_create_time = #{fileCreateTime},
+      </if>
+    </set>
+    where file_id = #{fileId}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="live.huanghe.common.domain.LiveHuangheFile">
+    <!--@mbg.generated-->
+    update live_huanghe_file
+    set file_url = #{fileUrl},
+      file_create_time = #{fileCreateTime}
+    where file_id = #{fileId}
+  </update>
+</mapper>

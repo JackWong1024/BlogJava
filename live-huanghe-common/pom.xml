@@ -50,12 +50,12 @@
     </dependencies>
     <build>
         <resources>
-<!--            <resource>-->
-<!--                <directory>src/main/java</directory>-->
-<!--                <includes>-->
-<!--                    <include>**/*.xml</include>-->
-<!--                </includes>-->
-<!--            </resource>-->
+            <!--            <resource>-->
+            <!--                <directory>src/main/java</directory>-->
+            <!--                <includes>-->
+            <!--                    <include>**/*.xml</include>-->
+            <!--                </includes>-->
+            <!--            </resource>-->
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
@@ -63,21 +63,6 @@
                 </includes>
             </resource>
         </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-<!--                        <goals>-->
-<!--                            <goal>repackage</goal>&lt;!&ndash;可以把依赖的包都打包到生成的Jar包中 &ndash;&gt;-->
-<!--                        </goals>-->
-                        <!--可以生成不含依赖包的不可执行Jar包 -->
-                        <!-- configuration> <classifier>exec</classifier> </configuration> -->
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
 
     </build>
 </project>

@@ -13,15 +13,12 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@Api(description = "用户-控制器",value = "用户-控制器")
+@Api(description = "用户-控制器", value = "用户-控制器")
 @RequestMapping("/user")
 @RestController
 @Log4j2
@@ -31,28 +28,31 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+
     @ApiOperation("获取用户信息,如果登录了,就获取登录用户的id")
     @GetMapping("/getUserInfoByUserName")
-    public LiveHuangheUser getUserInfoByUserId(@RequestParam("userName")String userName ){
-      LiveHuangheUser user;
-        user = userService.getUserInfoByUserId(userName);
-        return user;
-
+    public JsonRet<LiveHuangheUser>  getUserInfoByUserId(@RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "userId", required = false) Integer userId) {
+        LiveHuangheUser user = userService.getUserInfoByUserId(userName, userId);
+        return JsonRet.buildSuccRet(user);
     }
+
+
+    @ApiOperation("新建用户")
+    @GetMapping("/addUser")
+    public JsonRet addUser(@RequestBody LiveHuangheUser liveHuangheUser) {
+        return userService.addUser(liveHuangheUser);
+    }
+
 
     @ApiOperation("获取用户认证信息")
     @GetMapping("/getAuthentication")
-    public JsonRet<Authentication> getAuthentication(Authentication authentication){
-
+    public JsonRet<Authentication> getAuthentication(Authentication authentication) {
         return JsonRet.buildSuccRet(authentication);
 
     }
 
-    public static void main(String[] args) {
 
-        SimpleDateFormat sdf=new SimpleDateFormat("M月dd日 H时mm分");
-        String format = sdf.format(new Date());
-        System.out.print(format);
-    }
+
 
 }

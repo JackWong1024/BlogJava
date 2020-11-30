@@ -31,9 +31,9 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
       http.requestMatchers()//使HttpSecurity接收以"/login/","/oauth/"开头请求。 认证通过.
               .antMatchers("/oauth/**", "/login/**", "/logout/**")
-              .and()
-              .authorizeRequests()
-              .antMatchers("/user/**").authenticated()
+//              .and()
+//              .authorizeRequests()
+//              .antMatchers("/user/**").authenticated()
               .and()
               .authorizeRequests()
               .antMatchers("/**")
@@ -69,6 +69,7 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         //解决静态资源被拦截的问题...这里可以用来做自定义的登录界面..替换默认的登录界面
         web.ignoring().antMatchers("/asserts/**");
+        web.ignoring().antMatchers("/websocket/**");
         //web.ignoring().antMatchers("/favicon.ico");
 
     }

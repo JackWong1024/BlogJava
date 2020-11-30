@@ -37,45 +37,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 
 
-    @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
 
-    }
-
-    @Override
-    public void configureWebSocketTransport(WebSocketTransportRegistration registry) {
-
-    }
-
-    @Override
-    public void configureClientInboundChannel(ChannelRegistration registration) {
-
-    }
-
-    @Override
-    public void configureClientOutboundChannel(ChannelRegistration registration) {
-
-    }
-
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-
-    }
-
-    @Override
-    public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {
-
-    }
-
-    @Override
-    public boolean configureMessageConverters(List<MessageConverter> messageConverters) {
-        return false;
-    }
-
-    @Override
-    public void configureMessageBroker(MessageBrokerRegistry registry) {
-
-    }
 
 
 

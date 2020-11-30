@@ -5,8 +5,11 @@
     <!--@mbg.generated-->
     <!--@Table live_huanghe_user-->
     <id column="user_id" property="userId" />
+    <id column="user_create_time" property="userCreateTime" />
     <result column="user_name" property="userName" />
-    <result column="pass_word" property="passWord" />
+    <result column="user_english_name" property="userEnglishName" />
+    <result column="user_chinese_name" property="userChineseName" />
+    <result column="user_pass_word" property="userPassWord" />
     <result column="user_birth_day" property="userBirthDay" />
     <result column="user_email" property="userEmail" />
     <result column="user_phone" property="userPhone" />
@@ -15,7 +18,6 @@
     <result column="user_type" property="userType" />
     <result column="user_status" property="userStatus" />
     <result column="user_head_img" property="userHeadImg" />
-    <result column="user_create_time" property="userCreateTime" />
     <result column="user_update_time" property="userUpdateTime" />
     <result column="user_last_login_time" property="userLastLoginTime" />
     <result column="user_last_login_ip" property="userLastLoginIp" />
@@ -82,9 +84,9 @@
   </sql>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    user_id, user_name, pass_word, user_birth_day, user_email, user_phone, user_website, 
-    user_address, user_type, user_status, user_head_img, user_create_time, user_update_time, 
-    user_last_login_time, user_last_login_ip
+    user_id, user_create_time, user_name, user_english_name, user_chinese_name, user_pass_word, 
+    user_birth_day, user_email, user_phone, user_website, user_address, user_type, user_status, 
+    user_head_img, user_update_time, user_last_login_time, user_last_login_ip
   </sql>
   <select id="selectByExample" parameterType="live.huanghe.common.domain.LiveHuangheUserExample" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -101,17 +103,19 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
     from live_huanghe_user
     where user_id = #{userId}
+      and user_create_time = #{userCreateTime}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="map">
     <!--@mbg.generated-->
     delete from live_huanghe_user
     where user_id = #{userId}
+      and user_create_time = #{userCreateTime}
   </delete>
   <delete id="deleteByExample" parameterType="live.huanghe.common.domain.LiveHuangheUserExample">
     <!--@mbg.generated-->
@@ -122,22 +126,33 @@
   </delete>
   <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="live.huanghe.common.domain.LiveHuangheUser" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into live_huanghe_user (user_name, pass_word, user_birth_day, user_email, user_phone, user_website, 
-      user_address, user_type, user_status, user_head_img, user_create_time, 
-      user_update_time, user_last_login_time, user_last_login_ip)
-    values (#{userName}, #{passWord}, #{userBirthDay}, #{userEmail}, #{userPhone}, #{userWebsite}, 
-      #{userAddress}, #{userType}, #{userStatus}, #{userHeadImg}, #{userCreateTime}, 
-      #{userUpdateTime}, #{userLastLoginTime}, #{userLastLoginIp})
+    insert into live_huanghe_user (user_create_time, user_name, user_english_name, user_chinese_name, user_pass_word, 
+      user_birth_day, user_email, user_phone, user_website, user_address, user_type, 
+      user_status, user_head_img, user_update_time, user_last_login_time, user_last_login_ip
+      )
+    values (#{userCreateTime}, #{userName}, #{userEnglishName}, #{userChineseName}, #{userPassWord}, 
+      #{userBirthDay}, #{userEmail}, #{userPhone}, #{userWebsite}, #{userAddress}, #{userType}, 
+      #{userStatus}, #{userHeadImg}, #{userUpdateTime}, #{userLastLoginTime}, #{userLastLoginIp}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="user_id" keyProperty="userId" parameterType="live.huanghe.common.domain.LiveHuangheUser" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into live_huanghe_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userCreateTime != null">
+        user_create_time,
+      </if>
       <if test="userName != null and userName != ''">
         user_name,
       </if>
-      <if test="passWord != null and passWord != ''">
-        pass_word,
+      <if test="userEnglishName != null and userEnglishName != ''">
+        user_english_name,
+      </if>
+      <if test="userChineseName != null and userChineseName != ''">
+        user_chinese_name,
+      </if>
+      <if test="userPassWord != null and userPassWord != ''">
+        user_pass_word,
       </if>
       <if test="userBirthDay != null and userBirthDay != ''">
         user_birth_day,
@@ -163,9 +178,6 @@
       <if test="userHeadImg != null and userHeadImg != ''">
         user_head_img,
       </if>
-      <if test="userCreateTime != null">
-        user_create_time,
-      </if>
       <if test="userUpdateTime != null">
         user_update_time,
       </if>
@@ -177,11 +189,20 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userCreateTime != null">
+        #{userCreateTime},
+      </if>
       <if test="userName != null and userName != ''">
         #{userName},
       </if>
-      <if test="passWord != null and passWord != ''">
-        #{passWord},
+      <if test="userEnglishName != null and userEnglishName != ''">
+        #{userEnglishName},
+      </if>
+      <if test="userChineseName != null and userChineseName != ''">
+        #{userChineseName},
+      </if>
+      <if test="userPassWord != null and userPassWord != ''">
+        #{userPassWord},
       </if>
       <if test="userBirthDay != null and userBirthDay != ''">
         #{userBirthDay},
@@ -206,9 +227,6 @@
       </if>
       <if test="userHeadImg != null and userHeadImg != ''">
         #{userHeadImg},
-      </if>
-      <if test="userCreateTime != null">
-        #{userCreateTime},
       </if>
       <if test="userUpdateTime != null">
         #{userUpdateTime},
@@ -235,11 +253,20 @@
       <if test="record.userId != null">
         user_id = #{record.userId},
       </if>
+      <if test="record.userCreateTime != null">
+        user_create_time = #{record.userCreateTime},
+      </if>
       <if test="record.userName != null">
         user_name = #{record.userName},
       </if>
-      <if test="record.passWord != null">
-        pass_word = #{record.passWord},
+      <if test="record.userEnglishName != null">
+        user_english_name = #{record.userEnglishName},
+      </if>
+      <if test="record.userChineseName != null">
+        user_chinese_name = #{record.userChineseName},
+      </if>
+      <if test="record.userPassWord != null">
+        user_pass_word = #{record.userPassWord},
       </if>
       <if test="record.userBirthDay != null">
         user_birth_day = #{record.userBirthDay},
@@ -265,9 +292,6 @@
       <if test="record.userHeadImg != null">
         user_head_img = #{record.userHeadImg},
       </if>
-      <if test="record.userCreateTime != null">
-        user_create_time = #{record.userCreateTime},
-      </if>
       <if test="record.userUpdateTime != null">
         user_update_time = #{record.userUpdateTime},
       </if>
@@ -286,8 +310,11 @@
     <!--@mbg.generated-->
     update live_huanghe_user
     set user_id = #{record.userId},
+      user_create_time = #{record.userCreateTime},
       user_name = #{record.userName},
-      pass_word = #{record.passWord},
+      user_english_name = #{record.userEnglishName},
+      user_chinese_name = #{record.userChineseName},
+      user_pass_word = #{record.userPassWord},
       user_birth_day = #{record.userBirthDay},
       user_email = #{record.userEmail},
       user_phone = #{record.userPhone},
@@ -296,7 +323,6 @@
       user_type = #{record.userType},
       user_status = #{record.userStatus},
       user_head_img = #{record.userHeadImg},
-      user_create_time = #{record.userCreateTime},
       user_update_time = #{record.userUpdateTime},
       user_last_login_time = #{record.userLastLoginTime},
       user_last_login_ip = #{record.userLastLoginIp}
@@ -311,8 +337,14 @@
       <if test="userName != null and userName != ''">
         user_name = #{userName},
       </if>
-      <if test="passWord != null and passWord != ''">
-        pass_word = #{passWord},
+      <if test="userEnglishName != null and userEnglishName != ''">
+        user_english_name = #{userEnglishName},
+      </if>
+      <if test="userChineseName != null and userChineseName != ''">
+        user_chinese_name = #{userChineseName},
+      </if>
+      <if test="userPassWord != null and userPassWord != ''">
+        user_pass_word = #{userPassWord},
       </if>
       <if test="userBirthDay != null and userBirthDay != ''">
         user_birth_day = #{userBirthDay},
@@ -338,9 +370,6 @@
       <if test="userHeadImg != null and userHeadImg != ''">
         user_head_img = #{userHeadImg},
       </if>
-      <if test="userCreateTime != null">
-        user_create_time = #{userCreateTime},
-      </if>
       <if test="userUpdateTime != null">
         user_update_time = #{userUpdateTime},
       </if>
@@ -352,12 +381,15 @@
       </if>
     </set>
     where user_id = #{userId}
+      and user_create_time = #{userCreateTime}
   </update>
   <update id="updateByPrimaryKey" parameterType="live.huanghe.common.domain.LiveHuangheUser">
     <!--@mbg.generated-->
     update live_huanghe_user
     set user_name = #{userName},
-      pass_word = #{passWord},
+      user_english_name = #{userEnglishName},
+      user_chinese_name = #{userChineseName},
+      user_pass_word = #{userPassWord},
       user_birth_day = #{userBirthDay},
       user_email = #{userEmail},
       user_phone = #{userPhone},
@@ -366,314 +398,10 @@
       user_type = #{userType},
       user_status = #{userStatus},
       user_head_img = #{userHeadImg},
-      user_create_time = #{userCreateTime},
       user_update_time = #{userUpdateTime},
       user_last_login_time = #{userLastLoginTime},
       user_last_login_ip = #{userLastLoginIp}
     where user_id = #{userId}
+      and user_create_time = #{userCreateTime}
   </update>
-  <update id="updateBatch" parameterType="java.util.List">
-    <!--@mbg.generated-->
-    update live_huanghe_user
-    <trim prefix="set" suffixOverrides=",">
-      <trim prefix="user_name = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when user_id = #{item.userId} then #{item.userName}
-        </foreach>
-      </trim>
-      <trim prefix="pass_word = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when user_id = #{item.userId} then #{item.passWord}
-        </foreach>
-      </trim>
-      <trim prefix="user_birth_day = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when user_id = #{item.userId} then #{item.userBirthDay}
-        </foreach>
-      </trim>
-      <trim prefix="user_email = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when user_id = #{item.userId} then #{item.userEmail}
-        </foreach>
-      </trim>
-      <trim prefix="user_phone = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when user_id = #{item.userId} then #{item.userPhone}
-        </foreach>
-      </trim>
-      <trim prefix="user_website = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when user_id = #{item.userId} then #{item.userWebsite}
-        </foreach>
-      </trim>
-      <trim prefix="user_address = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when user_id = #{item.userId} then #{item.userAddress}
-        </foreach>
-      </trim>
-      <trim prefix="user_type = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when user_id = #{item.userId} then #{item.userType}
-        </foreach>
-      </trim>
-      <trim prefix="user_status = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when user_id = #{item.userId} then #{item.userStatus}
-        </foreach>
-      </trim>
-      <trim prefix="user_head_img = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when user_id = #{item.userId} then #{item.userHeadImg}
-        </foreach>
-      </trim>
-      <trim prefix="user_create_time = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when user_id = #{item.userId} then #{item.userCreateTime}
-        </foreach>
-      </trim>
-      <trim prefix="user_update_time = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when user_id = #{item.userId} then #{item.userUpdateTime}
-        </foreach>
-      </trim>
-      <trim prefix="user_last_login_time = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when user_id = #{item.userId} then #{item.userLastLoginTime}
-        </foreach>
-      </trim>
-      <trim prefix="user_last_login_ip = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when user_id = #{item.userId} then #{item.userLastLoginIp}
-        </foreach>
-      </trim>
-    </trim>
-    where user_id in
-    <foreach close=")" collection="list" item="item" open="(" separator=", ">
-      #{item.userId}
-    </foreach>
-  </update>
-  <insert id="batchInsert" keyColumn="user_id" keyProperty="userId" parameterType="map" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into live_huanghe_user
-    (user_name, pass_word, user_birth_day, user_email, user_phone, user_website, user_address, 
-      user_type, user_status, user_head_img, user_create_time, user_update_time, user_last_login_time, 
-      user_last_login_ip)
-    values
-    <foreach collection="list" item="item" separator=",">
-      (#{item.userName}, #{item.passWord}, #{item.userBirthDay}, #{item.userEmail}, #{item.userPhone}, 
-        #{item.userWebsite}, #{item.userAddress}, #{item.userType}, #{item.userStatus}, 
-        #{item.userHeadImg}, #{item.userCreateTime}, #{item.userUpdateTime}, #{item.userLastLoginTime}, 
-        #{item.userLastLoginIp})
-    </foreach>
-  </insert>
-  <insert id="insertOrUpdate" keyColumn="user_id" keyProperty="userId" parameterType="live.huanghe.common.domain.LiveHuangheUser" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into live_huanghe_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
-      </if>
-      user_name,
-      pass_word,
-      user_birth_day,
-      user_email,
-      user_phone,
-      user_website,
-      user_address,
-      user_type,
-      user_status,
-      user_head_img,
-      user_create_time,
-      user_update_time,
-      user_last_login_time,
-      user_last_login_ip,
-    </trim>
-    values
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId},
-      </if>
-      #{userName},
-      #{passWord},
-      #{userBirthDay},
-      #{userEmail},
-      #{userPhone},
-      #{userWebsite},
-      #{userAddress},
-      #{userType},
-      #{userStatus},
-      #{userHeadImg},
-      #{userCreateTime},
-      #{userUpdateTime},
-      #{userLastLoginTime},
-      #{userLastLoginIp},
-    </trim>
-    on duplicate key update 
-    <trim suffixOverrides=",">
-      <if test="userId != null">
-        user_id = #{userId},
-      </if>
-      user_name = #{userName},
-      pass_word = #{passWord},
-      user_birth_day = #{userBirthDay},
-      user_email = #{userEmail},
-      user_phone = #{userPhone},
-      user_website = #{userWebsite},
-      user_address = #{userAddress},
-      user_type = #{userType},
-      user_status = #{userStatus},
-      user_head_img = #{userHeadImg},
-      user_create_time = #{userCreateTime},
-      user_update_time = #{userUpdateTime},
-      user_last_login_time = #{userLastLoginTime},
-      user_last_login_ip = #{userLastLoginIp},
-    </trim>
-  </insert>
-  <insert id="insertOrUpdateSelective" keyColumn="user_id" keyProperty="userId" parameterType="live.huanghe.common.domain.LiveHuangheUser" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into live_huanghe_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="userName != null">
-        user_name,
-      </if>
-      <if test="passWord != null">
-        pass_word,
-      </if>
-      <if test="userBirthDay != null">
-        user_birth_day,
-      </if>
-      <if test="userEmail != null">
-        user_email,
-      </if>
-      <if test="userPhone != null">
-        user_phone,
-      </if>
-      <if test="userWebsite != null">
-        user_website,
-      </if>
-      <if test="userAddress != null">
-        user_address,
-      </if>
-      <if test="userType != null">
-        user_type,
-      </if>
-      <if test="userStatus != null">
-        user_status,
-      </if>
-      <if test="userHeadImg != null">
-        user_head_img,
-      </if>
-      <if test="userCreateTime != null">
-        user_create_time,
-      </if>
-      <if test="userUpdateTime != null">
-        user_update_time,
-      </if>
-      <if test="userLastLoginTime != null">
-        user_last_login_time,
-      </if>
-      <if test="userLastLoginIp != null">
-        user_last_login_ip,
-      </if>
-    </trim>
-    values
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId},
-      </if>
-      <if test="userName != null">
-        #{userName},
-      </if>
-      <if test="passWord != null">
-        #{passWord},
-      </if>
-      <if test="userBirthDay != null">
-        #{userBirthDay},
-      </if>
-      <if test="userEmail != null">
-        #{userEmail},
-      </if>
-      <if test="userPhone != null">
-        #{userPhone},
-      </if>
-      <if test="userWebsite != null">
-        #{userWebsite},
-      </if>
-      <if test="userAddress != null">
-        #{userAddress},
-      </if>
-      <if test="userType != null">
-        #{userType},
-      </if>
-      <if test="userStatus != null">
-        #{userStatus},
-      </if>
-      <if test="userHeadImg != null">
-        #{userHeadImg},
-      </if>
-      <if test="userCreateTime != null">
-        #{userCreateTime},
-      </if>
-      <if test="userUpdateTime != null">
-        #{userUpdateTime},
-      </if>
-      <if test="userLastLoginTime != null">
-        #{userLastLoginTime},
-      </if>
-      <if test="userLastLoginIp != null">
-        #{userLastLoginIp},
-      </if>
-    </trim>
-    on duplicate key update 
-    <trim suffixOverrides=",">
-      <if test="userId != null">
-        user_id = #{userId},
-      </if>
-      <if test="userName != null">
-        user_name = #{userName},
-      </if>
-      <if test="passWord != null">
-        pass_word = #{passWord},
-      </if>
-      <if test="userBirthDay != null">
-        user_birth_day = #{userBirthDay},
-      </if>
-      <if test="userEmail != null">
-        user_email = #{userEmail},
-      </if>
-      <if test="userPhone != null">
-        user_phone = #{userPhone},
-      </if>
-      <if test="userWebsite != null">
-        user_website = #{userWebsite},
-      </if>
-      <if test="userAddress != null">
-        user_address = #{userAddress},
-      </if>
-      <if test="userType != null">
-        user_type = #{userType},
-      </if>
-      <if test="userStatus != null">
-        user_status = #{userStatus},
-      </if>
-      <if test="userHeadImg != null">
-        user_head_img = #{userHeadImg},
-      </if>
-      <if test="userCreateTime != null">
-        user_create_time = #{userCreateTime},
-      </if>
-      <if test="userUpdateTime != null">
-        user_update_time = #{userUpdateTime},
-      </if>
-      <if test="userLastLoginTime != null">
-        user_last_login_time = #{userLastLoginTime},
-      </if>
-      <if test="userLastLoginIp != null">
-        user_last_login_ip = #{userLastLoginIp},
-      </if>
-    </trim>
-  </insert>
 </mapper>
